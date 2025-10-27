@@ -5,22 +5,21 @@
 #include <string>
 
 class Audio {
-    public:
-    private:
+public:
+private:
+public:
+  Audio(const Audio &) = delete;
+  Audio &operator=(const Audio &) = delete;
 
-    public:
-        Audio(const Audio&) = delete;
-        Audio& operator=(const Audio&) = delete;
+  static Audio &get();
+  static void close();
 
-        static Audio& get();
-        static void close();
+  void playSound(const Sound sound) const;
+  Sound loadSound(const std::string fileName) const;
 
-        void playSound(const Sound sound) const;
-        Sound loadSound(const std::string fileName) const;
-
-    private:
-        Audio();
-        ~Audio();
+private:
+  Audio();
+  ~Audio();
 };
 
 #endif

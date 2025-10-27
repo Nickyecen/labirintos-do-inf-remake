@@ -4,14 +4,14 @@
 #include "state.hpp"
 
 class StateMachine {
-    private:
-        std::unique_ptr<State> _currentState;
+private:
+  std::unique_ptr<State> _currentState;
 
-    public:
-        StateMachine(std::unique_ptr<State> initialState);
-        virtual void run();
+public:
+  StateMachine(std::unique_ptr<State> initialState);
+  virtual void run();
 
-        State* getCurrentState() const {return _currentState.get();}
+  State *getCurrentState() const { return _currentState.get(); }
 };
 
 #endif
