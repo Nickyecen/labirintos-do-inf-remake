@@ -28,7 +28,7 @@ private:
 
 public:
   static void renderTexture2D(Texture2D texture, RenderPosition position,
-                              RenderScale);
+                              RenderScale scale);
 };
 
 #endif

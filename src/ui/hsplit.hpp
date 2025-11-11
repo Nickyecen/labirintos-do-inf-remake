@@ -14,13 +14,14 @@ public:
          const float split);
 
   virtual void refresh() override;
+  virtual void draw() override;
 
   float getSplit() const { return _split; }
   void setSplit(const float split) {
     setDirty();
 
     if (split < 0 || split > 1) {
-      TraceLog(LOG_ERROR, "Tried setting vsplit out of range (0.0 - 1.0)");
+      TraceLog(LOG_ERROR, "Tried setting hsplit out of range [0.0, 1.0]");
       return;
     }
 

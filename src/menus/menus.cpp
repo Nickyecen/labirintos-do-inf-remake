@@ -1,5 +1,8 @@
 #include "menus.hpp"
 
+#include "../state-machines/interface_state.hpp"
+#include "main-menu/main_menu.hpp"
+
 bool Menus::isFinal() const { return false; }
 
 void Menus::enter() {

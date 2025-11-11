@@ -8,9 +8,17 @@ HSplit::HSplit(std::unique_ptr<UINode> top, std::unique_ptr<UINode> bottom,
   refresh();
 }
 
+void HSplit::draw() {
+  _top->draw();
+  _bottom->draw();
+}
+
 void HSplit::refresh() {
-  if (!_dirty)
+  if (!_dirty) {
+    _top->refresh();
+    _bottom->refresh();
     return;
+  }
 
   _dirty = false;
 

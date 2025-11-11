@@ -1,12 +1,10 @@
 #ifndef MENUS_HEADER
 #define MENUS_HEADER
 
-#include "../render/renderer.hpp"
-#include "../state-machines/interface_state.hpp"
 #include "../state-machines/state.hpp"
 #include "../state-machines/state_machine.hpp"
-#include "main-menu/main_menu.hpp"
 #include <memory>
+#include <raylib.h>
 
 class Menus : public State {
 private:

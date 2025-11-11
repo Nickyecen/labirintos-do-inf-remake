@@ -1,16 +1,20 @@
 #ifndef MAIN_MENU_STATE_HEADER
 #define MAIN_MENU_STATE_HEADER
 
-#include "../../render/renderer.hpp"
+#define TITLE_SIZE 64
+
 #include "../../state-machines/interface_state.hpp"
+#include "../../ui/ui-node.hpp"
 #include "raylib.h"
 #include <memory>
 
 class MainMenuState : public InterfaceState {
 public:
 private:
-  Color _backgroundColor = {0, 0, 0, 1};
+  Color _backgroundColor = {0, 0, 0, 255};
   Texture2D _backgroundTexture;
+
+  std::unique_ptr<UINode> _content;
 
 public:
   MainMenuState();
