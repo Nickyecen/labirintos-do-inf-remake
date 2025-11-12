@@ -4,6 +4,7 @@
 #include "state-machines/interface_state.hpp"
 #include "state-machines/state.hpp"
 #include "state-machines/state_machine.hpp"
+#include "ui/column.hpp"
 #include <bits/unique_ptr.h>
 #include <iostream>
 #include <raylib.h>

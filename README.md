@@ -1,3 +1,6 @@
 # Labirintos do INF
-Remake do jogo Labirintos do INF criado em 2023 como trabalho final da cadeira de Algoritmos e Programação. O jogo havia sido feito em C utilizando a raylib e está sendo refeito em C++ utilizando a raylib.
-O intuito desse remake é refazer o código agora com as novas experiências que tive estando mais avançado no curso, mantendo a base do jogo original, mas buscando implementar um código mais limpo, de melhor desempenho e adicionando pequenas features novas para melhorar a experiência de jogo.
+Remake do jogo Labirintos do INF criado em 2023 como trabalho final da cadeira de Algoritmos e Programação do Instituto de Informática da UFRGS. O jogo havia sido feito em C utilizando a raylib e está sendo refeito em C++ utilizando a raylib.
+
+O intuito desse remake é refazer o código agora com as novas experiências que tive estando mais avançado no curso - visto que a cadeira de Alg. e Prog. é do 1º Semestre -, mantendo a base do jogo original, mas buscando implementar um código mais limpo, de melhor desempenho e adicionando pequenas features novas para melhorar a experiência de jogo.
+
+O jogo original contava com 5 professores do Instituto de Informática como personagens, com voicelines e texturas específicas. Esses professores consentiram com o uso de sua imagem e voz para o trabalho, me autorizando a tirar as fotos e a gravar as falas que utilizei. Entretanto, como nunca explicitei sobre a utilização de um repositório público para o trabalho, não adicionarei esses professores aqui. O código seguirá compatível com a adição das texturas e vozes e fico à disposição de quem já experenciou o trabalho para eu enviar esses recursos para que adicionem em sua versão pessoal do jogo.

@@ -1,17 +1,25 @@
 #include "main_menu.hpp"
 #include "../../render/renderer.hpp"
+#include "../../ui/column.hpp"
 #include "../../ui/hsplit.hpp"
 #include "../../ui/label.hpp"
 #include "raylib.h"
 #include <memory>
 
 MainMenuState::MainMenuState() {
+
+  auto buttons = std::make_unique<Column>();
+  buttons
+      ->add(std::make_unique<Label>("Button 1", 24, (Color){255, 255, 255, 255},
+                                    RenderPosition::CENTER))
+      ->add(std::make_unique<Label>("Button 2", 24, (Color){255, 255, 255, 255},
+                                    RenderPosition::CENTER))
+      ->add(std::make_unique<Label>("Button 3", 24, (Color){255, 255, 255, 255},
+                                    RenderPosition::CENTER));
   _content = std::make_unique<HSplit>(
       std::make_unique<Label>("Título", TITLE_SIZE, (Color){255, 255, 255, 255},
                               RenderPosition::CENTER),
-      std::make_unique<Label>("Temp", TITLE_SIZE, (Color){255, 255, 255, 255},
-                              RenderPosition::BOTTOM_RIGHT),
-      0.2);
+      std::move(buttons), 0.2);
   _content->setTL((Vector2){0, 0});
   _content->setBR((Vector2){(float)GetRenderWidth(), (float)GetRenderHeight()});
   _content->refresh();

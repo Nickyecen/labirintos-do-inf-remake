@@ -8,6 +8,8 @@ protected:
   bool _dirty = true;
 
 public:
+  virtual ~UINode() = default;
+
   virtual void draw() = 0;
 
   virtual void refresh() = 0;
