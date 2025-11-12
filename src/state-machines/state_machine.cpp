@@ -1,5 +1,6 @@
 #include "state_machine.hpp"
 #include <memory>
+#include <raylib.h>
 
 StateMachine::StateMachine(std::unique_ptr<State> initialState)
     : _currentState(std::move(initialState)) {
@@ -15,4 +16,5 @@ void StateMachine::run() {
       this->_currentState->enter();
     }
   }
+  TraceLog(LOG_DEBUG, "Exited run");
 }

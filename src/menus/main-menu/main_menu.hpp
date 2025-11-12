@@ -2,6 +2,7 @@
 #define MAIN_MENU_STATE_HEADER
 
 #define TITLE_SIZE 64
+#define BUTTON_SIZE 24
 
 #include "../../state-machines/interface_state.hpp"
 #include "../../ui/ui-node.hpp"
@@ -15,6 +16,7 @@ private:
   Texture2D _backgroundTexture;
 
   std::unique_ptr<UINode> _content;
+  bool _shouldStop = false;
 
 public:
   MainMenuState();
