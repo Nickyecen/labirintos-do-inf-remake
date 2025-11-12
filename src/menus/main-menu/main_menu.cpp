@@ -2,6 +2,7 @@
 #include "../../render/renderer.hpp"
 #include "../../ui/button.hpp"
 #include "../../ui/column.hpp"
+#include "../../ui/frame.hpp"
 #include "../../ui/hsplit.hpp"
 #include "../../ui/label.hpp"
 #include "raylib.h"
@@ -77,13 +78,10 @@ MainMenuState::MainMenuState() {
       ->add(std::move(options))
       ->add(std::move(quit));
 
-  _content = std::make_unique<HSplit>(
+  _content = std::make_unique<Frame>(std::make_unique<HSplit>(
       std::make_unique<Label>("Labirintos do INF", TITLE_SIZE, WHITE,
                               RenderPosition::CENTER),
-      std::move(buttons), 0.4);
-  _content->setTL((Vector2){0, 0});
-  _content->setBR((Vector2){(float)GetRenderWidth(), (float)GetRenderHeight()});
-  _content->refresh();
+      std::move(buttons), 0.4));
 }
 MainMenuState::~MainMenuState() {}
 

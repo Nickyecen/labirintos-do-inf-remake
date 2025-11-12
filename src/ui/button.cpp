@@ -1,5 +1,4 @@
 #include "button.hpp"
-#include <iostream>
 #include <raylib.h>
 
 void Button::draw() { _resource->draw(); }
