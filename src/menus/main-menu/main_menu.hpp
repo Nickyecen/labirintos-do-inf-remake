@@ -5,6 +5,7 @@
 #define BUTTON_SIZE 24
 
 #include "../../state-machines/interface_state.hpp"
+#include "../../ui/button.hpp"
 #include "../../ui/ui-node.hpp"
 #include "raylib.h"
 #include <memory>
@@ -17,6 +18,8 @@ private:
 
   std::unique_ptr<UINode> _content;
   bool _shouldStop = false;
+
+  Sound _hoverSound, _cancelSound, _selectSound;
 
 public:
   MainMenuState();
@@ -32,6 +35,8 @@ public:
   virtual void exit() override;
 
 private:
+  std::unique_ptr<UINode> _createButtons();
+  std::unique_ptr<Button> _makeButton(std::string text, Sound &hover);
 };
 
 #endif

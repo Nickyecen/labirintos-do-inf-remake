@@ -16,7 +16,7 @@ all: ./bin/app
 # Main build rule
 ./bin/app: $(shell find src -name '*.cpp') 
 	mkdir -p ./bin/
-	g++ $^ -o ./bin/app$(OUT_EXT) -O1 -Wall -std=c++17 -Wno-missing-braces $(LIBS)
+	g++ $^ -o ./bin/app$(OUT_EXT) -g -O1 -Wall -std=c++20 -Wno-missing-braces $(LIBS)
 
 # Remove built executable
 clean:

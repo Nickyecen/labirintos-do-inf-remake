@@ -1,4 +1,5 @@
 #include "main_menu.hpp"
+#include "../../audio/audio.hpp"
 #include "../../render/renderer.hpp"
 #include "../../ui/button.hpp"
 #include "../../ui/column.hpp"
@@ -9,74 +10,11 @@
 #include <memory>
 
 MainMenuState::MainMenuState() {
-  auto newGameLabel = std::make_unique<Label>("Novo Jogo", BUTTON_SIZE, WHITE,
-                                              RenderPosition::CENTER);
-  Label *newGameLabelPtr = newGameLabel.get();
+  _hoverSound = Audio::get().loadSound("./res/sound/ui_hover.mp3");
+  _cancelSound = Audio::get().loadSound("./res/sound/ui_cancel.mp3");
+  _selectSound = Audio::get().loadSound("./res/sound/ui_select.mp3");
 
-  auto continueLabel = std::make_unique<Label>("Continuar", BUTTON_SIZE, WHITE,
-                                               RenderPosition::CENTER);
-  Label *continueLabelPtr = continueLabel.get();
-
-  auto optionsLabel = std::make_unique<Label>("Opções", BUTTON_SIZE, WHITE,
-                                              RenderPosition::CENTER);
-  Label *optionsLabelPtr = optionsLabel.get();
-
-  auto quitLabel = std::make_unique<Label>("Sair", BUTTON_SIZE, WHITE,
-                                           RenderPosition::CENTER);
-  Label *quitLabelPtr = quitLabel.get();
-
-  auto newGame = std::make_unique<Button>(std::move(newGameLabel));
-  auto contin = std::make_unique<Button>(std::move(continueLabel));
-  auto options = std::make_unique<Button>(std::move(optionsLabel));
-  auto quit = std::make_unique<Button>(std::move(quitLabel));
-
-  newGame->onHover = [newGameLabelPtr](const int x, const int y) {
-    newGameLabelPtr->setColor(GRAY);
-  };
-  newGame->onNotHover = [newGameLabelPtr](const int x, const int y) {
-    newGameLabelPtr->setColor(WHITE);
-  };
-  newGame->onLeftDown = [newGameLabelPtr](const int x, const int y) {
-    newGameLabelPtr->setColor(DARKGRAY);
-  };
-
-  contin->onHover = [continueLabelPtr](const int x, const int y) {
-    continueLabelPtr->setColor(GRAY);
-  };
-  contin->onNotHover = [continueLabelPtr](const int x, const int y) {
-    continueLabelPtr->setColor(WHITE);
-  };
-  contin->onLeftDown = [continueLabelPtr](const int x, const int y) {
-    continueLabelPtr->setColor(DARKGRAY);
-  };
-
-  options->onHover = [optionsLabelPtr](const int x, const int y) {
-    optionsLabelPtr->setColor(GRAY);
-  };
-  options->onNotHover = [optionsLabelPtr](const int x, const int y) {
-    optionsLabelPtr->setColor(WHITE);
-  };
-  options->onLeftDown = [optionsLabelPtr](const int x, const int y) {
-    optionsLabelPtr->setColor(DARKGRAY);
-  };
-
-  bool *doQuit = &_shouldStop;
-  quit->onHover = [quitLabelPtr](const int x, const int y) {
-    quitLabelPtr->setColor(GRAY);
-  };
-  quit->onNotHover = [quitLabelPtr](const int x, const int y) {
-    quitLabelPtr->setColor(WHITE);
-  };
-  quit->onLeftDown = [quitLabelPtr](const int x, const int y) {
-    quitLabelPtr->setColor(DARKGRAY);
-  };
-  quit->onLeftRelease = [doQuit](const int x, const int y) { *doQuit = true; };
-
-  auto buttons = std::make_unique<Column>();
-  buttons->add(std::move(newGame))
-      ->add(std::move(contin))
-      ->add(std::move(options))
-      ->add(std::move(quit));
+  std::unique_ptr<UINode> buttons = _createButtons();
 
   _content = std::make_unique<Frame>(std::make_unique<HSplit>(
       std::make_unique<Label>("Labirintos do INF", TITLE_SIZE, WHITE,
@@ -114,3 +52,46 @@ void MainMenuState::draw() const {
 }
 
 void MainMenuState::exit() { TraceLog(LOG_DEBUG, "Exited state"); }
+
+std::unique_ptr<Button> MainMenuState::_makeButton(std::string text,
+                                                   Sound &hover) {
+  auto label =
+      std::make_unique<Label>(text, BUTTON_SIZE, WHITE, RenderPosition::CENTER);
+  Label *labelPtr = label.get();
+
+  auto button = std::make_unique<Button>(std::move(label));
+
+  button->onHover = [labelPtr, hover](const int x, const int y) {
+    Audio::get().playSound(hover);
+    labelPtr->setColor(GRAY);
+  };
+  button->onNotHover = [labelPtr](const int x, const int y) {
+    labelPtr->setColor(WHITE);
+  };
+  button->onLeftClick = [labelPtr](const int x, const int y) {
+    labelPtr->setColor(DARKGRAY);
+  };
+  button->onLeftRelease = [labelPtr](const int x, const int y) {
+    labelPtr->setColor(GRAY);
+  };
+
+  return button;
+}
+
+std::unique_ptr<UINode> MainMenuState::_createButtons() {
+  auto newGame = _makeButton("Novo Jogo", _hoverSound);
+  auto contin = _makeButton("Continuar", _hoverSound);
+  auto options = _makeButton("Opções", _hoverSound);
+  auto quit = _makeButton("Sair", _hoverSound);
+
+  bool *doQuit = &_shouldStop;
+  quit->onLeftRelease = [doQuit](const int x, const int y) { *doQuit = true; };
+
+  auto buttons = std::make_unique<Column>();
+  buttons->add(std::move(newGame))
+      ->add(std::move(contin))
+      ->add(std::move(options))
+      ->add(std::move(quit));
+
+  return buttons;
+}

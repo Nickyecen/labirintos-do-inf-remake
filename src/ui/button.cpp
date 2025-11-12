@@ -15,14 +15,22 @@ void Button::refresh() {
       _tl.x <= pos.x && _br.x >= pos.x && _tl.y <= pos.y && _br.y >= pos.y;
 
   if (!over) {
-    if (onNotHover)
+    if (_wasHovering && onNotHover)
       onNotHover((const int)pos.x, (const int)pos.y);
+    if (onNotHovering)
+      onNotHovering((const int)pos.x, (const int)pos.y);
+    _wasHovering = false;
     _resource->refresh();
     return;
   }
 
-  if (onHover)
+  if (!_wasHovering && onHover)
     onHover((const int)pos.x, (const int)pos.y);
+
+  _wasHovering = true;
+
+  if (onHovering)
+    onHovering((const int)pos.x, (const int)pos.y);
 
   if (onLeftClick && IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
     onLeftClick((const int)pos.x, (const int)pos.y);

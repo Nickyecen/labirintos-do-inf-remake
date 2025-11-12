@@ -7,6 +7,7 @@
 class Button : public UINode {
 private:
   std::unique_ptr<UINode> _resource;
+  bool _wasHovering = false;
 
 public:
   Button(std::unique_ptr<UINode> resource) : _resource(std::move(resource)) {}
@@ -15,6 +16,8 @@ public:
 
   mouseFunc onHover;
   mouseFunc onNotHover;
+  mouseFunc onHovering;
+  mouseFunc onNotHovering;
 
   mouseFunc onLeftClick;
   mouseFunc onLeftDown;
