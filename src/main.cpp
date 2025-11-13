@@ -1,6 +1,5 @@
 #include "menus/menus.hpp"
 #include "state-machines/state_machine.hpp"
-#include <bits/unique_ptr.h>
 #include <raylib.h>
 
 int main() {

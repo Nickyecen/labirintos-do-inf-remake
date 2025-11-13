@@ -1,13 +1,11 @@
 #pragma once
 
 #include "../state-machines/state.hpp"
-#include "../state-machines/state_machine.hpp"
 #include <memory>
 #include <raylib.h>
 
-class Menus : public State {
+class GameLoop : public State {
 private:
-  std::unique_ptr<StateMachine> _interfaceStateMachine;
   bool _shouldStop = false;
 
 public:

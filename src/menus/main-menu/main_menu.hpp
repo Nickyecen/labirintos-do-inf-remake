@@ -13,7 +13,7 @@
 class MainMenuState : public InterfaceState {
 public:
 private:
-  Color _backgroundColor = {0, 0, 0, 255};
+  Color _backgroundColor = BLACK;
   Texture2D _backgroundTexture;
 
   std::unique_ptr<UINode> _content;
