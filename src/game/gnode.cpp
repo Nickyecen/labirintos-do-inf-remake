@@ -1,5 +1,4 @@
 #include "gnode.hpp"
-#include <cstdlib>
 #include <raylib.h>
 #include <sstream>
 

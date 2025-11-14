@@ -6,6 +6,8 @@
 #include <vector>
 
 class GNode {
+  friend class GameLoop;
+
 private:
   GNode *_parent = nullptr;
   std::vector<std::unique_ptr<GNode>> _childrenList;

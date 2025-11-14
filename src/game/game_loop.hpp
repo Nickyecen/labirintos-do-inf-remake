@@ -1,17 +1,19 @@
 #pragma once
 
 #include "../state-machines/state.hpp"
-#include "level.hpp"
+#include "gnode.hpp"
 #include <memory>
 #include <raylib.h>
 
 class GameLoop : public State {
 private:
-  const std::unique_ptr<Level> _level;
   bool _shouldStop = false;
+  std::unique_ptr<GNode> _tree;
+  Camera3D *_camera;
+  bool _is3D;
 
 public:
-  GameLoop(std::unique_ptr<Level> level) : _level(std::move(level)) {}
+  GameLoop(std::unique_ptr<GNode> tree);
 
   virtual bool isFinal() const override;
   virtual void enter() override;
