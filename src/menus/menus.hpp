@@ -2,7 +2,6 @@
 #define MENUS_HEADER
 
 #include "../state-machines/state.hpp"
-#include "../state-machines/state_machine.hpp"
 #include <memory>
 #include <raylib.h>
 

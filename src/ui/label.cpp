@@ -8,39 +8,39 @@ void Label::draw() {
 
   // Selects position to be draw
   switch (_position) {
-  case RenderPosition::TOP_LEFT:
+  case UINode::Position::TOP_LEFT:
     posX = _tl.x;
     posY = _tl.y;
     break;
-  case RenderPosition::TOP_CENTER:
+  case UINode::Position::TOP_CENTER:
     posX = _centerX;
     posY = _tl.y;
     break;
-  case RenderPosition::TOP_RIGHT:
+  case UINode::Position::TOP_RIGHT:
     posX = _br.x - size;
     posY = _tl.y;
     break;
-  case RenderPosition::CENTER_LEFT:
+  case UINode::Position::CENTER_LEFT:
     posX = _tl.x;
     posY = _centerY;
     break;
-  case RenderPosition::CENTER:
+  case UINode::Position::CENTER:
     posX = _centerX;
     posY = _centerY;
     break;
-  case RenderPosition::CENTER_RIGHT:
+  case UINode::Position::CENTER_RIGHT:
     posX = _br.x - size;
     posY = _centerY;
     break;
-  case RenderPosition::BOTTOM_LEFT:
+  case UINode::Position::BOTTOM_LEFT:
     posX = _tl.x;
     posY = _br.y - _size;
     break;
-  case RenderPosition::BOTTOM_CENTER:
+  case UINode::Position::BOTTOM_CENTER:
     posX = _centerX;
     posY = _br.y - _size;
     break;
-  case RenderPosition::BOTTOM_RIGHT:
+  case UINode::Position::BOTTOM_RIGHT:
     posX = _br.x - size;
     posY = _br.y - _size;
     break;

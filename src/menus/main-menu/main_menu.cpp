@@ -1,10 +1,11 @@
 #include "main_menu.hpp"
 #include "../../audio/audio.hpp"
-#include "../../render/renderer.hpp"
 #include "../../ui/button.hpp"
 #include "../../ui/column.hpp"
 #include "../../ui/frame.hpp"
 #include "../../ui/hsplit.hpp"
+#include "../../ui/overlay.hpp"
+#include "../../ui/image_frame.hpp"
 #include "../../ui/label.hpp"
 #include "raylib.h"
 #include <memory>
@@ -32,19 +33,27 @@ MainMenuState::MainMenuState() {
 
   // Creates interface
   _content = std::make_unique<Frame>( // Main Frame
-      std::make_unique<HSplit>( // Horizontal split
-        std::make_unique<Label>( // Title on top
-          GAME_TITLE,
-          TITLE_SIZE,
-          WHITE,
-          RenderPosition::CENTER
-          ),
-        std::move(buttons), // Buttons on the bottom
-        0.4 // Split localization
-        )
-      );
+              std::make_unique<Overlay>( // Overlay title on image
+                std::make_unique<ImageFrame>( // Background image
+                  BACKGROUND_IMAGE_FILE_STR,
+                  UINode::Position::CENTER,
+                  UINode::Scale::KEEP_PROPORTION_FILL
+                ),
+                std::make_unique<HSplit>( // Horizontal split
+                  std::make_unique<Label>( // Title on top
+                    GAME_TITLE,
+                    TITLE_SIZE,
+                    WHITE,
+                    UINode::Position::CENTER
+                  ),
+                  std::move(buttons), // Buttons on the bottom
+                  0.4 // Split localization
+                )
+              )
+            );
   TraceLog(LOG_DEBUG, "Created Main Menu content");
 }
+
 MainMenuState::~MainMenuState() {}
 
 // TODO Better draw logic for no unnecessary redrawing
@@ -73,8 +82,6 @@ std::unique_ptr<State> MainMenuState::update() {
 void MainMenuState::draw() const {
   BeginDrawing();
   ClearBackground(this->_BACKGROUND_COLOR);
-  Renderer::renderTexture2D(_backgroundTexture, RenderPosition::CENTER,
-                            RenderScale::KEEP_PROPORTION_FILL);
   _content->draw();
   EndDrawing();
 }
@@ -84,7 +91,7 @@ void MainMenuState::exit() { TraceLog(LOG_DEBUG, "Exit Main Menu"); }
 std::unique_ptr<Button> MainMenuState::_makeButton(std::string const text,
                                                    Sound const &hover) {
   std::unique_ptr<Label> label =
-      std::make_unique<Label>(text, BUTTON_SIZE, WHITE, RenderPosition::CENTER);
+      std::make_unique<Label>(text, BUTTON_SIZE, WHITE, UINode::Position::CENTER);
   Label *labelPtr = label.get();
 
   std::unique_ptr<Button> button = std::make_unique<Button>(std::move(label));

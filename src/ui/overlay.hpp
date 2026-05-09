@@ -4,26 +4,27 @@
 #include <memory>
 #include <vector>
 
-// UINode that holds a list of UINodes on top of each other in a column
-class Column : public UINode {
+// A UINode that contains text
+class Overlay : public UINode {
 protected:
   std::vector<std::unique_ptr<UINode>> _nodes;
 
 public:
-  template <typename... Args> Column(Args &&...args) {
+  template <typename... Args> Overlay(Args &&...args) {
     (this->add(std::forward<Args>(args)), ...);
   }
 
-  // Adds a UINode to the column
-  Column *add(std::unique_ptr<UINode> node);
+  // Adds a UINode to the overlay
+  Overlay *add(std::unique_ptr<UINode> node);
   size_t getNumNodes() const { return _nodes.size(); }
 
-  // Removes a node from the column, default last
+  // Removes a node from the overlay, default last
   void remove(const int pos = -1);
 
-  // Gets a node from the column
+  // Gets a node from the overlay
   UINode *getNode(const int pos) const;
-  // Changes a node from the column
+
+  // Changes a node from the overlay
   void setNode(const int pos, std::unique_ptr<UINode> node);
 
   virtual void refresh() override;

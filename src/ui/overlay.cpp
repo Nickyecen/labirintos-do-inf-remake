@@ -1,29 +1,29 @@
-#include "column.hpp"
+#include "overlay.hpp"
 #include "ui-node.hpp"
 
-Column *Column::add(std::unique_ptr<UINode> node) {
+Overlay *Overlay::add(std::unique_ptr<UINode> node) {
   setDirty();
 
-  // Adds a node to the end of the column
+  // Adds a node to the end of the overlay
   _nodes.push_back(std::move(node));
 
   return this;
 }
 
-void Column::remove(const int pos) {
+void Overlay::remove(const int pos) {
   setDirty();
 
-  // Removes pos node from the column
+  // Removes pos node from the overlay
   auto actualPos = pos < 0 ? _nodes.end() + pos : _nodes.begin() + pos;
   _nodes.erase(actualPos);
 }
 
-UINode *Column::getNode(const int pos) const {
+UINode *Overlay::getNode(const int pos) const {
   // Gets node at pos
   return _nodes.at(pos < 0 ? _nodes.size() + pos : pos).get();
 }
 
-void Column::setNode(const int pos, std::unique_ptr<UINode> node) {
+void Overlay::setNode(const int pos, std::unique_ptr<UINode> node) {
   setDirty();
 
   // Changes node at pos
@@ -32,8 +32,8 @@ void Column::setNode(const int pos, std::unique_ptr<UINode> node) {
   _nodes.insert(actualPos, std::move(node));
 }
 
-void Column::refresh() {
-  // Refreshes all nodes in the column
+void Overlay::refresh() {
+  // Refreshes all nodes in the overlay
   if (!_dirty) {
     for (auto &node : _nodes) {
       node->refresh();
@@ -44,16 +44,15 @@ void Column::refresh() {
   _dirty = false;
 
   int numNodes = getNumNodes();
-  float height = (_br.y - _tl.y) / (float)numNodes;
   for (int i = 0; i < numNodes; i++) {
     UINode *node = _nodes[i].get();
-    node->setTL({_tl.x, _tl.y + i * height});
-    node->setBR({_br.x, _tl.y + (i + 1) * height});
+    node->setTL({_tl.x, _tl.y});
+    node->setBR({_br.x, _br.y});
     node->refresh();
   }
 }
 
-void Column::draw() {
+void Overlay::draw() {
   for (auto &node : _nodes) {
     node->draw();
   }

@@ -1,6 +1,7 @@
 #include "menus.hpp"
 
 #include "../state-machines/interface_state.hpp"
+#include "../state-machines/state_machine.hpp"
 #include "main-menu/main_menu.hpp"
 
 bool Menus::isFinal() const { return true; }
