@@ -2,7 +2,7 @@
 #define RENDERER_HEADER
 #include "raylib.h"
 
-enum RenderPosition {
+enum class RenderPosition {
   TOP_LEFT,
   TOP_CENTER,
   TOP_RIGHT,
@@ -14,7 +14,7 @@ enum RenderPosition {
   BOTTOM_RIGHT
 };
 
-enum RenderScale {
+enum class RenderScale {
   KEEP,
   KEEP_PROPORTION_FILL,
   KEEP_PROPORTION_FIT,

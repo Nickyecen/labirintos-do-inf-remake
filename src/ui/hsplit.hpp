@@ -4,10 +4,11 @@
 #include <memory>
 #include <raylib.h>
 
+// UINode that separates the parent node horizontally
 class HSplit : public UINode {
 protected:
   std::unique_ptr<UINode> _top, _bottom;
-  float _split;
+  float _split; // split position [0, 1.0]
 
 public:
   HSplit(std::unique_ptr<UINode> top, std::unique_ptr<UINode> bottom,
@@ -16,6 +17,7 @@ public:
   virtual void refresh() override;
   virtual void draw() override;
 
+  // Getters and setters
   float getSplit() const { return _split; }
   void setSplit(const float split) {
     setDirty();

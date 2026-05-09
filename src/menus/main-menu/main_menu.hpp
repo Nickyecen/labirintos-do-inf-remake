@@ -13,12 +13,14 @@
 class MainMenuState : public InterfaceState {
 public:
 private:
-  Color _backgroundColor = {0, 0, 0, 255};
+  Color const _BACKGROUND_COLOR = {0, 0, 0, 255};
   Texture2D _backgroundTexture;
 
+  // Node tree with all interface content
   std::unique_ptr<UINode> _content;
   bool _shouldStop = false;
 
+  // Main menu sounds
   Sound _hoverSound, _cancelSound, _selectSound;
 
 public:
@@ -35,8 +37,11 @@ public:
   virtual void exit() override;
 
 private:
+  // Creates the buttons in the main menu
   std::unique_ptr<UINode> _createButtons();
-  std::unique_ptr<Button> _makeButton(std::string text, Sound &hover);
+
+  // Creates a single button
+  std::unique_ptr<Button> _makeButton(std::string const text, Sound const &hover);
 };
 
 #endif

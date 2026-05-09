@@ -5,6 +5,7 @@
 HSplit::HSplit(std::unique_ptr<UINode> top, std::unique_ptr<UINode> bottom,
                const float split)
     : _top(std::move(top)), _bottom(std::move(bottom)), _split(split) {
+  setDirty();
   refresh();
 }
 
@@ -14,6 +15,7 @@ void HSplit::draw() {
 }
 
 void HSplit::refresh() {
+  // Refreshes hierarchically
   if (!_dirty) {
     _top->refresh();
     _bottom->refresh();

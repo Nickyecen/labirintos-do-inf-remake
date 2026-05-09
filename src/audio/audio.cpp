@@ -1,5 +1,4 @@
 #include "audio.hpp"
-#include <memory>
 
 Audio::Audio() {}
 Audio::~Audio() {}
@@ -20,7 +19,7 @@ void Audio::close() {
     CloseAudioDevice();
 }
 
-void Audio::playSound(Sound sound) const { PlaySound(sound); }
+void Audio::playSound(Sound const sound) const { PlaySound(sound); }
 
 Sound Audio::loadSound(const std::string fileName) const {
   return LoadSound(fileName.c_str());

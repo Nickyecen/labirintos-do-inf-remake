@@ -7,6 +7,7 @@ Column::Column() {}
 Column *Column::add(std::unique_ptr<UINode> node) {
   setDirty();
 
+  // Adds a node to the end of the column
   _nodes.push_back(std::move(node));
 
   return this;
@@ -15,23 +16,27 @@ Column *Column::add(std::unique_ptr<UINode> node) {
 void Column::remove(const int pos) {
   setDirty();
 
+  // Removes pos node from the column
   auto actualPos = pos < 0 ? _nodes.end() + pos : _nodes.begin() + pos;
   _nodes.erase(actualPos);
 }
 
 UINode *Column::getNode(const int pos) const {
+  // Gets node at pos
   return _nodes.at(pos < 0 ? _nodes.size() + pos : pos).get();
 }
 
 void Column::setNode(const int pos, std::unique_ptr<UINode> node) {
   setDirty();
 
+  // Changes node at pos
   auto actualPos = pos < 0 ? _nodes.end() + pos : _nodes.begin() + pos;
   _nodes.erase(actualPos);
   _nodes.insert(actualPos, std::move(node));
 }
 
 void Column::refresh() {
+  // Refreshes all nodes in the column
   if (!_dirty) {
     for (auto &node : _nodes) {
       node->refresh();

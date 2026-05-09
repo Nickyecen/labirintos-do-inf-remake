@@ -1,42 +1,57 @@
 #include "label.hpp"
 #include <raylib.h>
 
+// Draws text on screen
 void Label::draw() {
+  int posX, posY;
+  int const size = MeasureText(_text.c_str(), _size);
+
+  // Selects position to be draw
   switch (_position) {
   case RenderPosition::TOP_LEFT:
-    DrawText(_text.c_str(), _tl.x, _tl.y, _size, _color);
+    posX = _tl.x;
+    posY = _tl.y;
     break;
   case RenderPosition::TOP_CENTER:
-    DrawText(_text.c_str(), _centerX, _tl.y, _size, _color);
+    posX = _centerX;
+    posY = _tl.y;
     break;
-  case RenderPosition::TOP_RIGHT: {
-    int size = MeasureText(_text.c_str(), _size);
-    DrawText(_text.c_str(), _br.x - size, _tl.y, _size, _color);
+  case RenderPosition::TOP_RIGHT:
+    posX = _br.x - size;
+    posY = _tl.y;
     break;
-  }
   case RenderPosition::CENTER_LEFT:
-    DrawText(_text.c_str(), _tl.x, _centerY, _size, _color);
+    posX = _tl.x;
+    posY = _centerY;
     break;
   case RenderPosition::CENTER:
-    DrawText(_text.c_str(), _centerX, _centerY, _size, _color);
+    posX = _centerX;
+    posY = _centerY;
     break;
-  case RenderPosition::CENTER_RIGHT: {
-    int size = MeasureText(_text.c_str(), _size);
-    DrawText(_text.c_str(), _br.x - size, _centerY, _size, _color);
+  case RenderPosition::CENTER_RIGHT:
+    posX = _br.x - size;
+    posY = _centerY;
     break;
-  }
   case RenderPosition::BOTTOM_LEFT:
-    DrawText(_text.c_str(), _tl.x, _br.y - _size, _size, _color);
+    posX = _tl.x;
+    posY = _br.y - _size;
     break;
   case RenderPosition::BOTTOM_CENTER:
-    DrawText(_text.c_str(), _centerX, _br.y - _size, _size, _color);
+    posX = _centerX;
+    posY = _br.y - _size;
     break;
-  case RenderPosition::BOTTOM_RIGHT: {
-    int size = MeasureText(_text.c_str(), _size);
-    DrawText(_text.c_str(), _br.x - size, _br.y - _size, _size, _color);
+  case RenderPosition::BOTTOM_RIGHT:
+    posX = _br.x - size;
+    posY = _br.y - _size;
     break;
+  default:
+    posX = _tl.x;
+    posY = _tl.y;
+    TraceLog(LOG_WARNING, "Label set posX and posY to default values");
   }
-  }
+
+  // Draws text
+  DrawText(_text.c_str(), posX, posY, _size, _color);
 }
 
 void Label::refresh() {

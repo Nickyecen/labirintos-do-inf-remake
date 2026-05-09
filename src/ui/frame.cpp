@@ -14,6 +14,7 @@ Frame::Frame(std::unique_ptr<UINode> content) : _content(std::move(content)) {
 
 void Frame::draw() { _content->draw(); }
 void Frame::refresh() {
+  // Always updates because window may've been resized
   const Vector2 br = {(float)GetScreenWidth(), (float)GetScreenHeight()};
   if (!(_br.x == br.x && _br.y == br.y)) {
     _br = br;

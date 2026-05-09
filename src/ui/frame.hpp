@@ -3,6 +3,7 @@
 #include "ui-node.hpp"
 #include <memory>
 
+// A window sized UINode that holds another UINode
 class Frame : public UINode {
 private:
   std::unique_ptr<UINode> _content;

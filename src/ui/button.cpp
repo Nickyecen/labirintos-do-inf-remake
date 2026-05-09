@@ -14,6 +14,7 @@ void Button::refresh() {
   const bool over =
       _tl.x <= pos.x && _br.x >= pos.x && _tl.y <= pos.y && _br.y >= pos.y;
 
+  // Mouse is not being hovered over
   if (!over) {
     if (_wasHovering && onNotHover)
       onNotHover((const int)pos.x, (const int)pos.y);
@@ -24,14 +25,19 @@ void Button::refresh() {
     return;
   }
 
+  // Mouse is being hovered over
   if (!_wasHovering && onHover)
     onHover((const int)pos.x, (const int)pos.y);
-
-  _wasHovering = true;
 
   if (onHovering)
     onHovering((const int)pos.x, (const int)pos.y);
 
+  // Update after onHovering call
+  _wasHovering = true;
+
+  // Mouse clicks can override hovering changes
+
+  // Checks left click button
   if (onLeftClick && IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
     onLeftClick((const int)pos.x, (const int)pos.y);
   if (onLeftDown && IsMouseButtonDown(MOUSE_LEFT_BUTTON))
@@ -41,6 +47,7 @@ void Button::refresh() {
   if (onLeftRelease && IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
     onLeftRelease((const int)pos.x, (const int)pos.y);
 
+  // Checks right click button
   if (onRightClick && IsMouseButtonPressed(MOUSE_RIGHT_BUTTON))
     onRightClick((const int)pos.x, (const int)pos.y);
   if (onRightDown && IsMouseButtonDown(MOUSE_RIGHT_BUTTON))

@@ -6,12 +6,13 @@
 #include <memory>
 #include <raylib.h>
 
+// Initial game state with main menus
 class Menus : public State {
 private:
-  std::unique_ptr<StateMachine> _interfaceStateMachine;
   bool _shouldStop = false;
 
 public:
+  // Overrides abstract methods
   virtual bool isFinal() const override;
   virtual void enter() override;
   virtual std::unique_ptr<State> update() override;

@@ -1,37 +1,31 @@
 #include "../render/renderer.hpp"
 #include "ui-node.hpp"
+#include <functional>
 #include <raylib.h>
 #include <string>
 
+// A UINode that contains text
 class Label : public UINode {
 protected:
-  std::string _text;
-  unsigned int _size;
-  Color _color;
-  RenderPosition _position = RenderPosition::TOP_LEFT;
-  int _centerX, _centerY;
+  std::string _text;                                   // Drawn text
+  unsigned int _size;                                  // Font size
+  Color _color;                                        // Text color
+  RenderPosition _position = RenderPosition::TOP_LEFT; // Text position
+  int _centerX, _centerY; // Text center for positioning
 
 public:
-  Label(std::string text, unsigned int size, Color color)
-      : _text(text), _size(size), _color(color) {
-    int canvasCenterX = _tl.x + (_br.x - _tl.x) / 2;
-    int canvasCenterY = _tl.y + (_br.y - _tl.y) / 2;
-    _centerX = canvasCenterX - (MeasureText(_text.c_str(), _size)) / 2;
-    _centerY = canvasCenterY - _size / 2;
-  }
-
-  Label(std::string text, unsigned int size, Color color,
-        RenderPosition position)
+  // Constructor
+  Label(std::string const text, unsigned int const size, Color const color,
+        RenderPosition const position = RenderPosition::TOP_LEFT)
       : _text(text), _size(size), _color(color), _position(position) {
-    int canvasCenterX = _tl.x + (_br.x - _tl.x) / 2;
-    int canvasCenterY = _tl.y + (_br.y - _tl.y) / 2;
-    _centerX = canvasCenterX - (MeasureText(_text.c_str(), _size)) / 2;
-    _centerY = canvasCenterY - _size / 2;
+    setDirty();
+    refresh();
   }
 
   virtual void draw() override;
   virtual void refresh() override;
 
+  // Getters and setters
   std::string getText() const { return _text; }
   unsigned int getFontSize() const { return _size; }
   Color getColor() const { return _color; }

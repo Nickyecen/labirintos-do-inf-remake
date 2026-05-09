@@ -14,9 +14,14 @@ endif
 all: ./bin/app
 
 # Main build rule
-./bin/app: $(shell find src -name '*.cpp') 
+./bin/app: $(shell find src -name '*.cpp')
 	mkdir -p ./bin/
-	g++ $^ -o ./bin/app$(OUT_EXT) -g -O1 -Wall -std=c++20 -Wno-missing-braces $(LIBS)
+	g++ $^ -o ./bin/app$(OUT_EXT) -O2 -Wall -std=c++20 -Wno-missing-braces $(LIBS)
+
+debug: $(shell find src -name '*.cpp')
+	mkdir -p ./bin/
+	g++ $^ -o ./bin/app$(OUT_EXT) -g -O0 -DDEBUG -Wall -std=c++20 -Wno-missing-braces $(LIBS)
+
 
 # Remove built executable
 clean:
